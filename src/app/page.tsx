@@ -5,7 +5,7 @@ export default function Home() {
         <main className="flex min-h-screen flex-col items-center justify-between p-8 md:p-24">
             {/* Hero Section */}
             <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6">Your Name</h1>
+                <h1 className="text-4xl md:text-6xl font-bold mb-6">Mohammad Nassar</h1>
                 <h2 className="text-xl md:text-2xl mb-8">Business Analyst & Odoo Specialist</h2>
 
                 <p className="text-lg mb-8">
@@ -170,19 +170,18 @@ export default function Home() {
             <section id="contact" className="w-full max-w-5xl py-16">
                 <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
                 <p className="mb-6">
-                    I&apos;m currently seeking opportunities that bridge business operations with cybersecurity,
-                    particularly in ERP environments. If you&apos;re looking for someone who understands both business
+                    If you&apos;re looking for someone who understands both business
                     processes and technical implementation with a growing focus on security, I&apos;d love to connect.
                 </p>
                 <div className="flex flex-col md:flex-row gap-4">
                     <a
-                        href="mailto:your.email@example.com"
+                        href="mailto:nassarmh93@gmail.com"
                         className="px-4 py-2 bg-blue-600 text-white rounded text-center hover:bg-blue-700 transition"
                     >
                         Email Me
                     </a>
                     <a
-                        href="https://linkedin.com/in/yourprofile"
+                        href="https://linkedin.com/in/nassarmh93"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-4 py-2 bg-blue-600 text-white rounded text-center hover:bg-blue-700 transition"
