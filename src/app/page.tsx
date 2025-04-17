@@ -9,14 +9,17 @@ export default function Home() {
                 <h2 className="text-xl md:text-2xl mb-8">Business Analyst & Odoo Specialist</h2>
 
                 <p className="text-lg mb-8">
-                    Bridging business needs with technical solutions - specializing in Odoo implementations and transitioning to cybersecurity.
+                    Bridging business needs with technical solutions - specializing in Odoo implementations and
+                    transitioning to cybersecurity.
                 </p>
 
                 <div className="flex gap-4">
-                    <Link href="#projects" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                    <Link href="#projects"
+                          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
                         View Projects
                     </Link>
-                    <Link href="#contact" className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition">
+                    <Link href="#contact"
+                          className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition">
                         Contact Me
                     </Link>
                 </div>
@@ -28,13 +31,20 @@ export default function Home() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                         <p className="mb-4">
-                            I'm a business professional with a strong technical foundation in Odoo ERP systems. With experience as both an Odoo developer and functional consultant, I've helped businesses optimize their operations through effective implementation of business management solutions.
+                            I&apos;m a business professional with a strong technical foundation in Odoo ERP systems.
+                            With experience as both an Odoo developer and functional consultant, I&apos;ve helped
+                            businesses optimize their operations through effective implementation of business management
+                            solutions.
                         </p>
                         <p className="mb-4">
-                            My unique combination of business acumen and technical skills allows me to translate complex business requirements into functional solutions. I excel at understanding client needs and configuring systems that drive operational efficiency.
+                            My unique combination of business acumen and technical skills allows me to translate complex
+                            business requirements into functional solutions. I excel at understanding client needs and
+                            configuring systems that drive operational efficiency.
                         </p>
                         <p>
-                            I'm currently expanding my expertise into cybersecurity, as I believe secure systems are the foundation of successful digital business operations. My goal is to help organizations protect their digital assets while maintaining operational excellence.
+                            I&apos;m currently expanding my expertise into cybersecurity, as I believe secure systems
+                            are the foundation of successful digital business operations. My goal is to help
+                            organizations protect their digital assets while maintaining operational excellence.
                         </p>
                     </div>
                     <div>
@@ -58,7 +68,8 @@ export default function Home() {
                         <div className="flex flex-wrap gap-2">
                             <span className="font-medium text-sm mb-2 w-full">Cybersecurity (Learning):</span>
                             {['Network Security', 'Vulnerability Assessment', 'Security Frameworks', 'Risk Management', 'Compliance'].map((skill) => (
-                                <span key={skill} className="px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-sm">
+                                <span key={skill}
+                                      className="px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-sm">
                   {skill}
                 </span>
                             ))}
@@ -79,7 +90,9 @@ export default function Home() {
                         <div className="p-4">
                             <h3 className="text-xl font-semibold mb-2">Enterprise ERP Implementation</h3>
                             <p className="text-gray-600 mb-4">
-                                Led the implementation of a comprehensive Odoo ERP system for a manufacturing client, integrating inventory, sales, accounting, and production modules. Developed custom modules to meet specific business requirements.
+                                Led the implementation of a comprehensive Odoo ERP system for a manufacturing client,
+                                integrating inventory, sales, accounting, and production modules. Developed custom
+                                modules to meet specific business requirements.
                             </p>
                             <div className="flex flex-wrap gap-2 mt-3 mb-4">
                                 <span className="px-2 py-1 bg-gray-100 rounded text-xs">Odoo</span>
@@ -97,7 +110,9 @@ export default function Home() {
                         <div className="p-4">
                             <h3 className="text-xl font-semibold mb-2">ERP Security Audit & Enhancement</h3>
                             <p className="text-gray-600 mb-4">
-                                Conducted a comprehensive security audit of an Odoo implementation, identifying vulnerabilities and implementing security measures to protect sensitive business data. Created documentation and training for secure system use.
+                                Conducted a comprehensive security audit of an Odoo implementation, identifying
+                                vulnerabilities and implementing security measures to protect sensitive business data.
+                                Created documentation and training for secure system use.
                             </p>
                             <div className="flex flex-wrap gap-2 mt-3 mb-4">
                                 <span className="px-2 py-1 bg-gray-100 rounded text-xs">Security Assessment</span>
@@ -115,7 +130,9 @@ export default function Home() {
                         <div className="p-4">
                             <h3 className="text-xl font-semibold mb-2">Custom Odoo Modules</h3>
                             <p className="text-gray-600 mb-4">
-                                Developed specialized Odoo modules to meet unique business requirements for various clients. Created custom reports, automated workflows, and integrated external systems to enhance operational capabilities.
+                                Developed specialized Odoo modules to meet unique business requirements for various
+                                clients. Created custom reports, automated workflows, and integrated external systems to
+                                enhance operational capabilities.
                             </p>
                             <div className="flex flex-wrap gap-2 mt-3 mb-4">
                                 <span className="px-2 py-1 bg-gray-100 rounded text-xs">Python</span>
@@ -134,7 +151,9 @@ export default function Home() {
                         <div className="p-4">
                             <h3 className="text-xl font-semibold mb-2">Process Optimization & Training</h3>
                             <p className="text-gray-600 mb-4">
-                                Analyzed business workflows and optimized processes for efficiency through effective Odoo implementation. Conducted user training sessions and created comprehensive documentation to ensure successful adoption.
+                                Analyzed business workflows and optimized processes for efficiency through effective
+                                Odoo implementation. Conducted user training sessions and created comprehensive
+                                documentation to ensure successful adoption.
                             </p>
                             <div className="flex flex-wrap gap-2 mt-3 mb-4">
                                 <span className="px-2 py-1 bg-gray-100 rounded text-xs">Business Analysis</span>
@@ -151,7 +170,9 @@ export default function Home() {
             <section id="contact" className="w-full max-w-5xl py-16">
                 <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
                 <p className="mb-6">
-                    I'm currently seeking opportunities that bridge business operations with cybersecurity, particularly in ERP environments. If you're looking for someone who understands both business processes and technical implementation with a growing focus on security, I'd love to connect.
+                    I&apos;m currently seeking opportunities that bridge business operations with cybersecurity,
+                    particularly in ERP environments. If you&apos;re looking for someone who understands both business
+                    processes and technical implementation with a growing focus on security, I&apos;d love to connect.
                 </p>
                 <div className="flex flex-col md:flex-row gap-4">
                     <a
