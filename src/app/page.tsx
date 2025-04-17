@@ -6,7 +6,7 @@ export default function Home() {
             {/* Hero Section */}
             <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
                 <h1 className="text-4xl md:text-6xl font-bold mb-6">Mohammad Nassar</h1>
-                <h2 className="text-xl md:text-2xl mb-8">Business Analyst & Odoo Specialist</h2>
+                <h2 className="text-xl md:text-2xl mb-8">Techno-Functional Consultant</h2>
 
                 <p className="text-lg mb-8">
                     Bridging business needs with technical solutions - specializing in Odoo implementations and
