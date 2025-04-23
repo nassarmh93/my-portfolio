@@ -37,12 +37,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body className={`${poppins.className} font-sans bg-transparent`}>
         {/* Interactive Background with dramatic ripple effect */}
         <InteractiveGridBackground
-            intensity={1.2}           // Slightly reduced
-            density="low"             // Lower density for better performance
+            intensity={0.2}           // Slightly reduced
+            density="high"             // Lower density for better performance
             colors={["#124E66", "#2E3944", "#748092", "#D3D9D4"]}
             respectReducedMotion={true}
-            hoverRadius={150}         // Reduced hover radius
-            hoverIntensity={0.5}      // Reduced hover intensity
+            hoverRadius={50}         // Reduced hover radius
+            hoverIntensity={1}      // Reduced hover intensity
         />
 
         {/* Main navigation */}

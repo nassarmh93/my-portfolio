@@ -28,8 +28,8 @@ export default function InteractiveGridBackground({
                                                       density = 'medium',
                                                       colors = ["#124E66", "#2E3944", "#748092", "#D3D9D4"],
                                                       respectReducedMotion = true,
-                                                      hoverRadius = 150,
-                                                      hoverIntensity = 0.6
+                                                      hoverRadius = 45,
+                                                      hoverIntensity = 0.1
                                                   }: InteractiveGridBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const mousePos = useRef({ x: -1000, y: -1000 });
@@ -74,13 +74,13 @@ export default function InteractiveGridBackground({
         }
     }, [respectReducedMotion]);
 
-    // Determine grid size based on density - MUCH HIGHER density now
+    // Determine grid size based on density
     const getGridSize = useCallback(() => {
         switch(density) {
-            case 'low': return { rows: 60, cols: 100 };       // Increased from 30/50
-            case 'high': return { rows: 120, cols: 200 };     // Increased from 60/100
+            case 'low': return { rows: 60, cols: 100 };
+            case 'high': return { rows: 120, cols: 200 };
             case 'medium':
-            default: return { rows: 80, cols: 140 };          // Increased from 40/70
+            default: return { rows: 80, cols: 140 };
         }
     }, [density]);
 
@@ -117,17 +117,16 @@ export default function InteractiveGridBackground({
     const createRipple = useCallback((x: number, y: number) => {
         try {
             // Maximum radius based on canvas size and intensity
-            // REDUCED TO 10% of previous value
-            const maxRadius = Math.min(canvasSize.width, canvasSize.height) * 0.07; // Reduced from 0.7 (90% reduction)
+            const maxRadius = Math.min(canvasSize.width, canvasSize.height) * 0.07;
 
             const newRipple: Ripple = {
                 x,
                 y,
-                radius: 5, // Smaller initial radius
+                radius: 1,
                 maxRadius,
                 startTime: Date.now(),
-                duration: 1500, // Faster duration since radius is smaller
-                strength: 2.5 * intensity // Increased strength for visibility
+                duration: 1500,
+                strength: 1 * intensity
             };
 
             // Limit the number of active ripples for performance
@@ -224,7 +223,7 @@ export default function InteractiveGridBackground({
             // Calculate cell sizes
             const cellWidth = canvas.width / cols;
             const cellHeight = canvas.height / rows;
-            const basePixelSize = Math.min(cellWidth, cellHeight) * 0.9; // Increased from 0.8 for denser appearance
+            const basePixelSize = Math.min(cellWidth, cellHeight) * 0.9;
 
             let lastTime = 0;
             isInitialized.current = true;
@@ -250,9 +249,10 @@ export default function InteractiveGridBackground({
                             const posY = y * cellHeight + cellHeight / 2;
 
                             // Default pixel properties
-                            let pixelSize = basePixelSize * 0.9; // Default larger size for density
-                            let opacity = 0.04; // Slightly increased base opacity
-                            let colorIndex = 0; // Default color
+                            let pixelSize = basePixelSize * 0.9;
+                            let opacity = 0.04;
+                            let colorIndex = 0;
+                            let isAnimated = false; // Flag to track if this pixel is affected by animation
 
                             // Calculate distance from mouse position for hover effect
                             const dx = posX - mousePos.current.x;
@@ -261,6 +261,8 @@ export default function InteractiveGridBackground({
 
                             // Apply hover effect if pixel is within hover radius
                             if (distanceFromMouse < hoverRadius) {
+                                isAnimated = true; // This pixel is affected by hover
+
                                 // Calculate hover intensity based on distance
                                 const hoverFactor = 1 - (distanceFromMouse / hoverRadius);
 
@@ -268,8 +270,8 @@ export default function InteractiveGridBackground({
                                 const pulseEffect = Math.sin(timeRef.current * 3) * 0.5 + 0.5;
 
                                 // Apply hover effect to pixel properties
-                                pixelSize = basePixelSize * (0.9 + hoverFactor * hoverIntensity * 0.5 * pulseEffect);
-                                opacity = 0.04 + hoverFactor * hoverIntensity * 0.2;
+                                pixelSize = basePixelSize * (0.9 + hoverFactor * hoverIntensity * 0.6 * pulseEffect);
+                                opacity = 0.1 + hoverFactor * hoverIntensity * 0.5;
 
                                 // Change color based on distance from mouse
                                 if (rgbColors.length > 1) {
@@ -301,7 +303,7 @@ export default function InteractiveGridBackground({
                                     const dy = posY - ripple.y;
                                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                                    // Width of the ripple ring - increased relative to new smaller max radius
+                                    // Width of the ripple ring
                                     const rippleWidth = ripple.maxRadius * 0.1;
 
                                     // Check if pixel is within the ripple ring
@@ -309,6 +311,8 @@ export default function InteractiveGridBackground({
                                     const outerRadius = ripple.radius + rippleWidth * 0.5;
 
                                     if (distance >= innerRadius && distance <= outerRadius) {
+                                        isAnimated = true; // This pixel is affected by ripple
+
                                         // Calculate how close to the center of the ring
                                         const distFromRing = Math.abs(distance - ripple.radius);
 
@@ -317,10 +321,10 @@ export default function InteractiveGridBackground({
                                         const waveAmplitude = Math.sin(wavePhase) * ripple.strength * (1 - progress * 0.5);
 
                                         // Boost pixel size
-                                        pixelSize = basePixelSize * (1 + waveAmplitude * 2.0);
+                                        pixelSize = basePixelSize * (1 + waveAmplitude * 2.5);
 
                                         // Higher opacity
-                                        opacity = Math.max(opacity, 0.15 + waveAmplitude * 0.85);
+                                        opacity = Math.max(opacity, 0.3 + waveAmplitude * 0.7);
 
                                         // Color change
                                         if (rgbColors.length > 0) {
@@ -341,16 +345,25 @@ export default function InteractiveGridBackground({
                             // Apply final pixel properties with safety check
                             const colorObj = rgbColors[colorIndex];
                             if (colorObj) {
-                                // Draw the pixel with final properties
-                                ctx.fillStyle = `rgba(${colorObj.r}, ${colorObj.g}, ${colorObj.b}, ${opacity})`;
-                                ctx.beginPath();
-                                ctx.rect(
-                                    posX - pixelSize / 2,
-                                    posY - pixelSize / 2,
-                                    pixelSize,
-                                    pixelSize
-                                );
-                                ctx.fill();
+                                if (isAnimated) {
+                                    // Draw dollar sign for animated pixels
+                                    ctx.fillStyle = `rgba(${colorObj.r}, ${colorObj.g}, ${colorObj.b}, ${opacity})`;
+                                    ctx.font = `${pixelSize}px Arial`;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'middle';
+                                    ctx.fillText('$', posX, posY);
+                                } else {
+                                    // Draw rectangles for background pixels
+                                    ctx.fillStyle = `rgba(${colorObj.r}, ${colorObj.g}, ${colorObj.b}, ${opacity})`;
+                                    ctx.beginPath();
+                                    ctx.rect(
+                                        posX - pixelSize / 2,
+                                        posY - pixelSize / 2,
+                                        pixelSize,
+                                        pixelSize
+                                    );
+                                    ctx.fill();
+                                }
                             }
                         }
                     }

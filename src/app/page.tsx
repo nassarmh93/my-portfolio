@@ -3,7 +3,7 @@ import ProjectCard from '@/components/ProjectCard';
 import ContactCard from '@/components/ContactCard';
 import SkillTag from '@/components/SkillTag';
 import SectionHeading from '@/components/SectionHeading';
-// Removed unused import: InteractiveGridBackground
+import EmailButton from '@/components/EmailButton'; // Import the client component
 
 // Define skill categories with their respective skills and colors
 const skillCategories = [
@@ -30,8 +30,8 @@ const skillCategories = [
 // Project data
 const projects = [
     {
-        title: 'Enterprise ERP Implementation',
-        description: 'Led the implementation of a comprehensive Odoo ERP system for a manufacturing client, integrating inventory, sales, accounting, and production modules. Developed custom modules to meet specific business requirements.',
+        title: 'Multi-Industry Odoo ERP Implementations in Lebanon and Qatar',
+        description: 'Led Odoo ERP implementations across diverse sectors including recruitment, manufacturing, retail, and e-commerce. Successfully deployed tailored solutions for clients such as Levant Medical Group, Medi-Afric, Cloud Resources, and StockMe.pro. Delivered end-to-end setups covering key modules like Sales, CRM, Accounting, Inventory, and Recruitment, with a strong focus on aligning system workflows to each client\'s operational needs in Lebanon and Qatar.',
         gradient: 'from-teal to-slate',
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,8 +42,8 @@ const projects = [
         tagColor: 'blue'
     },
     {
-        title: 'Multi-System Integration Project',
-        description: 'Successfully integrated Odoo ERP with external CRM and e-commerce platforms for a retail client, creating a unified data flow across all business systems. Implemented automated synchronization of customers, inventory, and sales data.',
+        title: 'AI Interview System Integration with Odoo ERP',
+        description: 'Integrated Screeners.ai—a cutting-edge AI-based interview platform—into Odoo ERP to streamline candidate evaluation and automate interview scheduling. Enabled real-time data exchange through secure API connections, allowing recruiters to manage interview insights, candidate progress, and scoring directly within the Odoo environment. Improved hiring efficiency, reduced manual coordination, and provided a seamless user experience.',
         gradient: 'from-slate to-gray',
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,15 +54,15 @@ const projects = [
         tagColor: 'indigo'
     },
     {
-        title: 'Custom Odoo Modules',
-        description: 'Developed specialized Odoo modules to meet unique business requirements for various clients. Created custom reports, automated workflows, and integrated external systems to enhance operational capabilities.',
+        title: 'Custom Development & Odoo Technical Expertise',
+        description: 'Experienced in full-stack Odoo development with a focus on customizing portals, websites, and e-commerce using Owl.js, SCSS, and CSS. Proficient in backend enhancements for modules like Accounting, Manufacturing, and PoS using Python, XML, and Owl.js. Developed dynamic reports in Qweb, PDF, and Excel formats. Integrated Odoo with external systems via REST APIs and cron jobs. Managed Odoo deployments on cloud and Docker, and implemented CI/CD pipelines for streamlined delivery.',
         gradient: 'from-teal to-gray',
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
         ),
-        tags: ['Python', 'XML', 'JavaScript', 'API Integration'],
+        tags: ['Python', 'XML', 'JavaScript', 'API Integration', 'Owl.js', 'SCSS', 'CSS', 'REST APIs', 'Cron Jobs', 'Docker', 'CI/CD', 'Deployment'],
         tagColor: 'green'
     },
     {
@@ -79,17 +79,8 @@ const projects = [
     }
 ];
 
-// Contact options data
+// Contact options data (without the email option which we'll handle separately)
 const contactOptions = [
-    {
-        title: 'Email Me',
-        link: 'mailto:nassarmh93@gmail.com',
-        icon: (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-teal-bright mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-        )
-    },
     {
         title: 'LinkedIn',
         link: 'https://linkedin.com/in/nassarmh93',
@@ -224,7 +215,12 @@ export default function Home() {
                             processes and technical implementation with a growing focus on security, I&apos;d love to connect.
                         </p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
+                        {/* Updated Contact Options Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
+                            {/* Email Button - Client Component */}
+                            {/*<EmailButton animationDelay={0} />*/}
+
+                            {/* Other contact options */}
                             {contactOptions.map((option, index) => (
                                 <ContactCard
                                     key={option.title}
@@ -233,7 +229,7 @@ export default function Home() {
                                     icon={option.icon}
                                     isExternal={option.isExternal}
                                     isDownload={option.isDownload}
-                                    animationDelay={index * 100}
+                                    animationDelay={(index + 1) * 100}
                                 />
                             ))}
                         </div>

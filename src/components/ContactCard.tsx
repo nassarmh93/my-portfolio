@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 interface ContactCardProps {
     title: string;
-    detail?: string; // Making detail optional but not using it
+    detail?: string; // Optional property
     link: string;
     icon: ReactNode;
     isExternal?: boolean;
@@ -15,7 +15,6 @@ interface ContactCardProps {
 
 export default function ContactCard({
                                         title,
-                                        // Removed detail parameter completely since it's not used
                                         link,
                                         icon,
                                         isExternal = false,
@@ -43,8 +42,9 @@ export default function ContactCard({
         <Link
             href={link}
             onClick={handleClick}
-            {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            {...(isDownload ? { download: "" } : {})}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+            download={isDownload ? true : undefined}
             className="flex flex-col items-center justify-center p-4 sm:p-5 md:p-6 bg-white dark:bg-slate rounded-lg shadow-md hover:shadow-lg transition text-center w-full h-full animate-on-scroll fade-in-up group hover:translate-y-[-4px]"
             style={animationStyle}
         >
