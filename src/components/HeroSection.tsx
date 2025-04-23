@@ -65,7 +65,7 @@ export default function HeroSection({
     // Remove unused constants completely
 
     return (
-        <div ref={heroRef} className="relative min-h-screen overflow-hidden">
+        <div ref={heroRef}>
             {/* Interactive background */}
             <div className="absolute inset-0 -z-10 opacity-70">
                 <InteractiveGridBackground />
