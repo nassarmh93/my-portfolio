@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 interface ContactCardProps {
     title: string;
-    detail?: string; // Making detail optional
+    detail?: string; // Making detail optional but not using it
     link: string;
     icon: ReactNode;
     isExternal?: boolean;
@@ -15,7 +15,7 @@ interface ContactCardProps {
 
 export default function ContactCard({
                                         title,
-                                        detail,
+                                        // Removed detail parameter completely since it's not used
                                         link,
                                         icon,
                                         isExternal = false,

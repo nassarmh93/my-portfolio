@@ -17,7 +17,8 @@ export default function HeroSection({
                                         description = "Bridging business needs with technical solutions - specializing in Odoo implementations and transitioning to cybersecurity."
                                     }: HeroSectionProps) {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [activeCard, setActiveCard] = useState<number | null>(null);
+
+    // Remove unused state variables completely
     const heroRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -61,42 +62,7 @@ export default function HeroSection({
         };
     }, []);
 
-    const techStack = [
-        { name: "Python", color: "from-teal-bright to-blue-500" },
-        { name: "Odoo", color: "from-green-500 to-teal-bright" },
-        { name: "JavaScript", color: "from-yellow-500 to-amber-600" },
-        { name: "SQL", color: "from-blue-600 to-indigo-700" },
-    ];
-
-    const services = [
-        {
-            title: "ERP Implementation",
-            description: "Full-cycle Odoo ERP setup and implementation tailored to your business needs",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-            ),
-        },
-        {
-            title: "System Integration",
-            description: "Connect your Odoo system with other business applications for seamless data flow",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-            ),
-        },
-        {
-            title: "Business Analysis",
-            description: "In-depth analysis of business processes to optimize operational efficiency",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-            ),
-        },
-    ];
+    // Remove unused constants completely
 
     return (
         <div ref={heroRef} className="relative min-h-screen overflow-hidden">
@@ -161,8 +127,8 @@ export default function HeroSection({
                                                 transform: isLoaded ? 'translateY(0)' : 'translateY(10px)'
                                             }}
                                         >
-                      {tech}
-                    </span>
+                                            {tech}
+                                        </span>
                                     ))}
                                 </div>
                             </div>

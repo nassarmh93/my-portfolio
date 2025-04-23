@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 interface Ripple {
     x: number;
@@ -74,15 +74,15 @@ export default function InteractiveGridBackground({
         }
     }, [respectReducedMotion]);
 
-    // Determine grid size based on density - lower density for better performance
-    const getGridSize = () => {
+    // Determine grid size based on density - MUCH HIGHER density now
+    const getGridSize = useCallback(() => {
         switch(density) {
-            case 'low': return { rows: 30, cols: 50 };
-            case 'high': return { rows: 60, cols: 100 };
+            case 'low': return { rows: 60, cols: 100 };       // Increased from 30/50
+            case 'high': return { rows: 120, cols: 200 };     // Increased from 60/100
             case 'medium':
-            default: return { rows: 40, cols: 70 };
+            default: return { rows: 80, cols: 140 };          // Increased from 40/70
         }
-    };
+    }, [density]);
 
     // Handle window resize
     useEffect(() => {
@@ -114,19 +114,20 @@ export default function InteractiveGridBackground({
     }, []);
 
     // Create a new ripple
-    const createRipple = (x: number, y: number) => {
+    const createRipple = useCallback((x: number, y: number) => {
         try {
             // Maximum radius based on canvas size and intensity
-            const maxRadius = Math.min(canvasSize.width, canvasSize.height) * 0.7;
+            // REDUCED TO 10% of previous value
+            const maxRadius = Math.min(canvasSize.width, canvasSize.height) * 0.07; // Reduced from 0.7 (90% reduction)
 
             const newRipple: Ripple = {
                 x,
                 y,
-                radius: 10,
+                radius: 5, // Smaller initial radius
                 maxRadius,
                 startTime: Date.now(),
-                duration: 2000, // 2 seconds for ripple
-                strength: 2.0 * intensity
+                duration: 1500, // Faster duration since radius is smaller
+                strength: 2.5 * intensity // Increased strength for visibility
             };
 
             // Limit the number of active ripples for performance
@@ -138,7 +139,7 @@ export default function InteractiveGridBackground({
         } catch (e) {
             console.error("Error creating ripple:", e);
         }
-    };
+    }, [canvasSize, intensity]);
 
     // Handle document-level click events and mouse movement
     useEffect(() => {
@@ -203,7 +204,7 @@ export default function InteractiveGridBackground({
                 throttleRef.current = null;
             }
         };
-    }, [prefersReducedMotion, canvasSize]);
+    }, [prefersReducedMotion, canvasSize, createRipple]);
 
     // Main animation loop
     useEffect(() => {
@@ -223,7 +224,7 @@ export default function InteractiveGridBackground({
             // Calculate cell sizes
             const cellWidth = canvas.width / cols;
             const cellHeight = canvas.height / rows;
-            const basePixelSize = Math.min(cellWidth, cellHeight) * 0.8;
+            const basePixelSize = Math.min(cellWidth, cellHeight) * 0.9; // Increased from 0.8 for denser appearance
 
             let lastTime = 0;
             isInitialized.current = true;
@@ -249,8 +250,8 @@ export default function InteractiveGridBackground({
                             const posY = y * cellHeight + cellHeight / 2;
 
                             // Default pixel properties
-                            let pixelSize = basePixelSize * 0.8; // Default smaller size
-                            let opacity = 0.03; // Very subtle base opacity
+                            let pixelSize = basePixelSize * 0.9; // Default larger size for density
+                            let opacity = 0.04; // Slightly increased base opacity
                             let colorIndex = 0; // Default color
 
                             // Calculate distance from mouse position for hover effect
@@ -267,8 +268,8 @@ export default function InteractiveGridBackground({
                                 const pulseEffect = Math.sin(timeRef.current * 3) * 0.5 + 0.5;
 
                                 // Apply hover effect to pixel properties
-                                pixelSize = basePixelSize * (0.8 + hoverFactor * hoverIntensity * 0.4 * pulseEffect);
-                                opacity = 0.03 + hoverFactor * hoverIntensity * 0.15;
+                                pixelSize = basePixelSize * (0.9 + hoverFactor * hoverIntensity * 0.5 * pulseEffect);
+                                opacity = 0.04 + hoverFactor * hoverIntensity * 0.2;
 
                                 // Change color based on distance from mouse
                                 if (rgbColors.length > 1) {
@@ -300,8 +301,8 @@ export default function InteractiveGridBackground({
                                     const dy = posY - ripple.y;
                                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                                    // Width of the ripple ring - 80% less spread
-                                    const rippleWidth = ripple.maxRadius * 0.06;
+                                    // Width of the ripple ring - increased relative to new smaller max radius
+                                    const rippleWidth = ripple.maxRadius * 0.1;
 
                                     // Check if pixel is within the ripple ring
                                     const innerRadius = Math.max(0, ripple.radius - rippleWidth);
@@ -310,17 +311,16 @@ export default function InteractiveGridBackground({
                                     if (distance >= innerRadius && distance <= outerRadius) {
                                         // Calculate how close to the center of the ring
                                         const distFromRing = Math.abs(distance - ripple.radius);
-                                        const ringFactor = 1 - distFromRing / rippleWidth;
 
                                         // Calculate ripple effect strength
                                         const wavePhase = (distFromRing / rippleWidth) * Math.PI * 2;
                                         const waveAmplitude = Math.sin(wavePhase) * ripple.strength * (1 - progress * 0.5);
 
                                         // Boost pixel size
-                                        pixelSize = basePixelSize * (1 + waveAmplitude * 1.5);
+                                        pixelSize = basePixelSize * (1 + waveAmplitude * 2.0);
 
                                         // Higher opacity
-                                        opacity = Math.max(opacity, 0.1 + waveAmplitude * 0.7);
+                                        opacity = Math.max(opacity, 0.15 + waveAmplitude * 0.85);
 
                                         // Color change
                                         if (rgbColors.length > 0) {
@@ -377,7 +377,7 @@ export default function InteractiveGridBackground({
         } catch (e) {
             console.error("Error setting up animation:", e);
         }
-    }, [canvasSize, density, intensity, colors, prefersReducedMotion, hoverRadius, hoverIntensity]);
+    }, [canvasSize, colors, prefersReducedMotion, hoverRadius, hoverIntensity, getGridSize]);
 
     return (
         <canvas

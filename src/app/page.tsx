@@ -3,7 +3,7 @@ import ProjectCard from '@/components/ProjectCard';
 import ContactCard from '@/components/ContactCard';
 import SkillTag from '@/components/SkillTag';
 import SectionHeading from '@/components/SectionHeading';
-import InteractiveGridBackground from '@/components/InteractiveGridBackground';
+// Removed unused import: InteractiveGridBackground
 
 // Define skill categories with their respective skills and colors
 const skillCategories = [
