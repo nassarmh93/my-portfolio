@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 interface ContactCardProps {
     title: string;
-    detail: string;
+    detail?: string; // Making detail optional
     link: string;
     icon: ReactNode;
     isExternal?: boolean;
@@ -45,16 +45,15 @@ export default function ContactCard({
             onClick={handleClick}
             {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             {...(isDownload ? { download: "" } : {})}
-            className="flex flex-col items-center p-6 bg-white dark:bg-slate rounded-lg shadow-md hover:shadow-lg transition text-center w-full animate-on-scroll fade-in-up"
+            className="flex flex-col items-center justify-center p-4 sm:p-5 md:p-6 bg-white dark:bg-slate rounded-lg shadow-md hover:shadow-lg transition text-center w-full h-full animate-on-scroll fade-in-up group hover:translate-y-[-4px]"
             style={animationStyle}
         >
-            <div className="text-teal-bright mb-3">
+            <div className="text-teal-bright mb-3 sm:mb-4 transition-transform duration-300 group-hover:scale-110">
                 {icon}
             </div>
-            <h3 className="font-semibold text-slate-dark dark:text-white mb-1">
+            <h3 className="font-semibold text-slate-dark dark:text-white text-sm sm:text-base md:text-lg">
                 {isLoading ? "Preparing..." : title}
             </h3>
-            <p className="text-teal-bright">{detail}</p>
         </Link>
     );
 }

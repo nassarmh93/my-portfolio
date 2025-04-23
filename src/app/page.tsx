@@ -1,9 +1,9 @@
+import HeroSection from '@/components/HeroSection';
 import ProjectCard from '@/components/ProjectCard';
 import ContactCard from '@/components/ContactCard';
 import SkillTag from '@/components/SkillTag';
 import SectionHeading from '@/components/SectionHeading';
-import HeroSection from '@/components/HeroSection';
-import ParticlesBackground from '@/components/ParticlesBackground';
+import InteractiveGridBackground from '@/components/InteractiveGridBackground';
 
 // Define skill categories with their respective skills and colors
 const skillCategories = [
@@ -83,7 +83,6 @@ const projects = [
 const contactOptions = [
     {
         title: 'Email Me',
-        detail: 'nassarmh93@gmail.com',
         link: 'mailto:nassarmh93@gmail.com',
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-teal-bright mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -92,8 +91,7 @@ const contactOptions = [
         )
     },
     {
-        title: 'Connect on LinkedIn',
-        detail: 'linkedin.com/in/nassarmh93',
+        title: 'LinkedIn',
         link: 'https://linkedin.com/in/nassarmh93',
         isExternal: true,
         icon: (
@@ -103,8 +101,7 @@ const contactOptions = [
         )
     },
     {
-        title: 'Download Resume',
-        detail: 'View my qualifications',
+        title: 'Resume',
         link: '/resume-mohammad-nassar.pdf',
         isDownload: true,
         icon: (
@@ -117,7 +114,7 @@ const contactOptions = [
 
 export default function Home() {
     return (
-        <main className="bg-white dark:bg-slate-dark">
+        <main className="bg-transparent relative min-h-screen">
             {/* Hero Section */}
             <HeroSection
                 name="Mohammad Nassar"
@@ -126,20 +123,17 @@ export default function Home() {
             />
 
             {/* About Section */}
-            <section id="about" className="py-20 bg-white dark:bg-slate-dark relative">
-                <div className="absolute inset-0 opacity-5">
-                    <ParticlesBackground count={15} maxSize={2} speed={0.2} />
-                </div>
+            <section id="about" className="py-20 bg-transparent relative">
                 <div className="container mx-auto px-4 md:px-8 relative z-10">
                     <SectionHeading>
-            <span className="relative">
-              About Me
-              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
-            </span>
+                        <span className="relative">
+                            About Me
+                            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
+                        </span>
                     </SectionHeading>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <div className="animate-on-scroll fade-in-up card-3d p-8 rounded-xl bg-white dark:bg-slate shadow-lg">
+                        <div className="animate-on-scroll fade-in-up card-3d p-8 rounded-xl bg-white/20 dark:bg-slate/20 backdrop-blur-sm shadow-lg">
                             <h3 className="text-xl font-semibold mb-4 text-teal-bright">My Background</h3>
                             <p className="text-slate dark:text-light mb-4">
                                 I&apos;m a business professional with a strong technical foundation in Odoo ERP systems.
@@ -160,7 +154,7 @@ export default function Home() {
                         </div>
 
                         {/* Skills section without scrollable container */}
-                        <div className="card glass p-6 rounded-lg">
+                        <div className="card glass p-6 rounded-lg bg-white/10 dark:bg-slate/10 backdrop-blur-sm">
                             <h3 className="text-xl font-semibold mb-4 text-teal-bright">My Skills</h3>
                             {skillCategories.map((category) => (
                                 <div key={category.title} className="mb-8 last:mb-0">
@@ -187,16 +181,13 @@ export default function Home() {
             </section>
 
             {/* Projects Section */}
-            <section id="projects" className="py-20 bg-light dark:bg-slate relative">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0 bg-linear-180 from-teal/10 to-transparent"></div>
-                </div>
+            <section id="projects" className="py-20 bg-transparent relative">
                 <div className="container mx-auto px-4 md:px-8 relative z-10">
                     <SectionHeading>
-            <span className="relative">
-              Projects & Experience
-              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
-            </span>
+                        <span className="relative">
+                            Projects & Experience
+                            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
+                        </span>
                     </SectionHeading>
 
                     {/* Projects grid without scrollable container */}
@@ -218,30 +209,26 @@ export default function Home() {
             </section>
 
             {/* Contact Section */}
-            <section id="contact" className="py-20 bg-white dark:bg-slate-dark relative">
-                <div className="absolute inset-0 opacity-5">
-                    <ParticlesBackground count={15} maxSize={2} speed={0.2} />
-                </div>
+            <section id="contact" className="py-20 bg-transparent relative">
                 <div className="container mx-auto px-4 md:px-8 relative z-10">
                     <SectionHeading>
-            <span className="relative">
-              Get In Touch
-              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
-            </span>
+                        <span className="relative">
+                            Get In Touch
+                            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
+                        </span>
                     </SectionHeading>
 
-                    <div className="max-w-3xl mx-auto card glass p-8 rounded-xl shadow-lg animate-on-scroll fade-in-up">
+                    <div className="max-w-3xl mx-auto card glass p-8 rounded-xl bg-white/10 dark:bg-slate/10 backdrop-blur-sm shadow-lg animate-on-scroll fade-in-up">
                         <p className="text-slate dark:text-light text-lg text-center mb-8">
                             If you&apos;re looking for someone who understands both business
                             processes and technical implementation with a growing focus on security, I&apos;d love to connect.
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
                             {contactOptions.map((option, index) => (
                                 <ContactCard
                                     key={option.title}
                                     title={option.title}
-                                    detail={option.detail}
                                     link={option.link}
                                     icon={option.icon}
                                     isExternal={option.isExternal}

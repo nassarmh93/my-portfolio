@@ -1,9 +1,9 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import InteractiveBlob from './InteractiveBlob';
-import ParticlesBackground from './ParticlesBackground';
+import InteractiveGridBackground from './InteractiveGridBackground';
 
 interface HeroSectionProps {
     name: string;
@@ -17,24 +17,41 @@ export default function HeroSection({
                                         description = "Bridging business needs with technical solutions - specializing in Odoo implementations and transitioning to cybersecurity."
                                     }: HeroSectionProps) {
     const [isLoaded, setIsLoaded] = useState(false);
-    const textRef = useRef<HTMLDivElement>(null);
+    const [activeCard, setActiveCard] = useState<number | null>(null);
+    const heroRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setIsLoaded(true);
 
+        // Only animate tech cards, not the profile picture
         const handleMouseMove = (e: MouseEvent) => {
-            if (!textRef.current) return;
+            if (!heroRef.current) return;
 
-            const { left, top, width, height } = textRef.current.getBoundingClientRect();
-            const x = (e.clientX - left) / width - 0.5;
-            const y = (e.clientY - top) / height - 0.5;
+            const cards = heroRef.current.querySelectorAll('.tech-card');
+            const rect = heroRef.current.getBoundingClientRect();
 
-            textRef.current.style.transform = `
-        perspective(1000px)
-        rotateX(${y * 3}deg)
-        rotateY(${x * -3}deg)
-        translateZ(10px)
-      `;
+            // Calculate mouse position relative to container center
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Normalize mouse position (-1 to 1)
+            const normalizedX = (e.clientX - centerX) / (rect.width / 2);
+            const normalizedY = (e.clientY - centerY) / (rect.height / 2);
+
+            // Apply movement to cards based on mouse position
+            cards.forEach((card, index) => {
+                const factor = 0.05 * (index + 1);
+                const translateX = normalizedX * 30 * factor;
+                const translateY = normalizedY * 20 * factor;
+                const rotateX = -normalizedY * 15 * factor;
+                const rotateY = normalizedX * 15 * factor;
+
+                (card as HTMLElement).style.transform = `
+          translate3d(${translateX}px, ${translateY}px, 0)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+        `;
+            });
         };
 
         window.addEventListener('mousemove', handleMouseMove);
@@ -44,135 +61,153 @@ export default function HeroSection({
         };
     }, []);
 
+    const techStack = [
+        { name: "Python", color: "from-teal-bright to-blue-500" },
+        { name: "Odoo", color: "from-green-500 to-teal-bright" },
+        { name: "JavaScript", color: "from-yellow-500 to-amber-600" },
+        { name: "SQL", color: "from-blue-600 to-indigo-700" },
+    ];
+
+    const services = [
+        {
+            title: "ERP Implementation",
+            description: "Full-cycle Odoo ERP setup and implementation tailored to your business needs",
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+            ),
+        },
+        {
+            title: "System Integration",
+            description: "Connect your Odoo system with other business applications for seamless data flow",
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+            ),
+        },
+        {
+            title: "Business Analysis",
+            description: "In-depth analysis of business processes to optimize operational efficiency",
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+            ),
+        },
+    ];
+
     return (
-        <section className="relative min-h-screen pt-20 pb-20 md:py-32 overflow-hidden flex items-center">
-            {/* Particle background */}
-            <div className="absolute inset-0 -z-10">
-                <ParticlesBackground count={30} colors={["#124E66", "#748092", "#D3D9D4"]} />
+        <div ref={heroRef} className="relative min-h-screen overflow-hidden">
+            {/* Interactive background */}
+            <div className="absolute inset-0 -z-10 opacity-70">
+                <InteractiveGridBackground />
             </div>
 
-            {/* Interactive blob background */}
-            <div className="absolute inset-0 -z-20">
-                <InteractiveBlob
-                    size={900}
-                    colors={["#124E66", "#2E3944", "#748092"]}
-                    className="w-full h-full"
-                />
-            </div>
+            <div className="container mx-auto px-4 relative z-10 pt-20 pb-16 md:pt-28 md:pb-24">
+                <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
 
-            {/* Content container */}
-            <div className="container mx-auto px-4 md:px-8 relative z-10">
-                <div className="flex flex-col md:flex-row items-center">
-                    {/* Text content with 3D effect */}
-                    <div
-                        ref={textRef}
-                        className={`md:w-1/2 mb-10 md:mb-0 transition-all duration-1000 transform ${
-                            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                        }`}
-                        style={{ transition: 'transform 0.1s ease' }}
-                    >
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-dark dark:text-white mb-4">
-                            <span className="block mb-2">{name}</span>
-                        </h1>
+                    {/* Content Section */}
+                    <div className={`w-full lg:w-1/2 mt-12 lg:mt-0 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
+                        <div className="max-w-lg mx-auto lg:mx-0">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-teal-bright to-blue-500">
+                                {name}
+                            </h1>
 
-                        <h2 className="text-xl md:text-2xl text-teal-bright font-medium mb-6 relative">
-                            {title}
-                            <span className="absolute -bottom-2 left-0 w-16 h-1 bg-teal"></span>
-                        </h2>
+                            <h2 className="text-xl md:text-2xl font-medium mb-6 text-teal-bright">
+                                {title}
+                                <span className="block w-24 h-1 bg-gradient-to-r from-teal to-teal-bright mt-2"></span>
+                            </h2>
 
-                        <p className="text-slate dark:text-light mb-8 max-w-lg">
-                            {description}
-                        </p>
+                            <p className="text-slate dark:text-light mb-8 text-lg  bg-white/0 dark:bg-slate/10 p-4 rounded-lg border border-white/0 dark:border-slate/20">
+                                {description}
+                            </p>
 
-                        <div className="flex flex-wrap gap-4">
-                            <Link
-                                href="#projects"
-                                className="btn-primary flex items-center gap-2"
-                            >
-                                <span>View Projects</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                            </Link>
+                            <div className="flex flex-wrap gap-4 mb-12">
+                                <Link
+                                    href="#projects"
+                                    className="tech-btn flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-teal to-teal-bright text-white relative overflow-hidden"
+                                >
+                                    <span className="relative z-10">View Projects</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5l7 7-7 7" />
+                                    </svg>
+                                    <span className="absolute inset-0 bg-gradient-to-r from-teal-bright to-blue-500 opacity-0 hover:opacity-100 transition-opacity duration-300"></span>
+                                </Link>
 
-                            <Link
-                                href="#contact"
-                                className="btn-secondary flex items-center gap-2"
-                            >
-                                <span>Contact Me</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path>
-                                </svg>
-                            </Link>
-                        </div>
-
-                        {/* Tech stack indicators */}
-                        <div className="mt-12 flex items-center gap-4">
-                            <span className="text-gray dark:text-light text-sm">Tech Stack:</span>
-                            <div className="flex flex-wrap gap-3">
-                                {["Python", "Odoo", "JavaScript", "SQL"].map((tech, index) => (
-                                    <span
-                                        key={tech}
-                                        className={`text-xs font-medium py-1 px-3 rounded-full bg-light text-teal transition-transform duration-300 transform hover:scale-110`}
-                                        style={{
-                                            transitionDelay: `${index * 100}ms`,
-                                            opacity: isLoaded ? 1 : 0,
-                                            transform: isLoaded ? 'translateY(0)' : 'translateY(10px)'
-                                        }}
-                                    >
-                    {tech}
-                  </span>
-                                ))}
+                                <Link
+                                    href="#contact"
+                                    className="tech-btn flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10  border border-white/0 dark:border-slate/0 hover:bg-white/0 transition-colors duration-300"
+                                >
+                                    <span>Contact Me</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </Link>
                             </div>
-                        </div>
-                    </div>
 
-                    {/* Profile image or avatar */}
-                    <div className={`md:w-1/2 flex justify-center transition-all duration-1000 transform ${
-                        isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                    }`}>
-                        <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl card-3d">
-                            <div className="absolute inset-0 bg-linear-120 from-teal to-slate"></div>
-                            {/* Uncomment and add your profile image once you have one */}
-                            {/* <Image
-                src="/profile.jpg"
-                alt="Mohammad Nassar"
-                fill
-                sizes="(max-width: 768px) 256px, 320px"
-                priority
-                style={{objectFit: 'cover'}}
-              /> */}
-
-                            {/* Decorative elements */}
-                            <div className="absolute inset-0">
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-                                    <div className="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white">
-                                        MN
-                                    </div>
-
-                                    {/* Animated rings */}
-                                    <div className="absolute inset-0 animate-pulse opacity-20 border-8 border-white rounded-full"></div>
-                                    <div className="absolute inset-4 animate-pulse opacity-10 border-4 border-white rounded-full" style={{ animationDelay: '0.5s' }}></div>
-                                    <div className="absolute inset-8 animate-pulse opacity-5 border-2 border-white rounded-full" style={{ animationDelay: '1s' }}></div>
+                            {/* Tech Stack indicators */}
+                            <div className="mt-12 flex items-center gap-4">
+                                <span className="text-gray dark:text-light text-sm">Tech Stack:</span>
+                                <div className="flex flex-wrap gap-3">
+                                    {["Python", "Odoo", "JavaScript", "SQL"].map((tech, index) => (
+                                        <span
+                                            key={tech}
+                                            className="text-xs font-medium py-1 px-3 rounded-full bg-light text-teal transition-transform duration-300 transform hover:scale-110"
+                                            style={{
+                                                transitionDelay: `${index * 100}ms`,
+                                                opacity: isLoaded ? 1 : 0,
+                                                transform: isLoaded ? 'translateY(0)' : 'translateY(10px)'
+                                            }}
+                                        >
+                      {tech}
+                    </span>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Scroll indicator */}
-                <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
-                    isLoaded ? 'opacity-100' : 'opacity-0'
-                }`}>
-                    <div className="flex flex-col items-center">
-                        <span className="text-gray dark:text-light text-sm mb-2">Scroll to explore</span>
-                        <div className="w-6 h-10 border-2 border-gray dark:border-light rounded-full flex justify-center">
-                            <div className="w-1.5 h-1.5 bg-teal rounded-full animate-bounce mt-2"></div>
+                    {/* Profile Section */}
+                    <div className={`w-full lg:w-1/2 flex flex-col items-center ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '300ms' }}>
+                        {/* Profile Image without 3D effect */}
+                        <div className="profile-container relative">
+                            <div className="relative h-64 w-64 md:h-80 md:w-80 rounded-full overflow-hidden shadow-2xl border-4 border-teal-bright">
+                                <div className="absolute inset-0 bg-gradient-to-br from-teal to-blue-500"></div>
+                                <Image
+                                    src="/profile.png"
+                                    alt="Mohammad Nassar"
+                                    fill
+                                    sizes="(max-width: 768px) 256px, 320px"
+                                    priority
+                                    style={{objectFit: 'cover'}}
+                                    className="relative z-10"
+                                />
+
+                                {/* Animated rings */}
+                                <div className="absolute inset-0 z-20">
+                                    <div className="absolute inset-0 rounded-full border-8 border-white/0 animate-pulse"></div>
+                                    <div className="absolute inset-4 rounded-full border-4 border-white/15 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                                    <div className="absolute inset-8 rounded-full border-2 border-white/10 animate-pulse" style={{ animationDelay: '1s' }}></div>
+                                </div>
+                            </div>
+
+                            {/* Floating elements */}
+                            <div className="absolute -top-4 -right-4 bg-gradient-to-br from-teal to-blue-500 rounded-full p-3 shadow-lg animate-float">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <div className="absolute -bottom-2 -left-2 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full p-2 shadow-lg animate-float" style={{ animationDelay: '0.5s' }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     );
 }

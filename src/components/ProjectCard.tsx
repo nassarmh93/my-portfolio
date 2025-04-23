@@ -25,29 +25,29 @@ export default function ProjectCard({
 
     // Tag background color mapping
     const tagColorMap: Record<string, string> = {
-        blue: 'bg-light text-teal-bright',
-        indigo: 'bg-light text-teal-bright',
-        green: 'bg-light text-teal-bright',
-        orange: 'bg-light text-teal-bright',
-        red: 'bg-light text-teal-bright',
-        purple: 'bg-light text-teal-bright',
-        teal: 'bg-light text-teal-bright',
+        blue: 'bg-light/0 text-teal-bright',
+        indigo: 'bg-light/0 text-teal-bright',
+        green: 'bg-light/0 text-teal-bright',
+        orange: 'bg-light/0 text-teal-bright',
+        red: 'bg-light/0 text-teal-bright',
+        purple: 'bg-light/0 text-teal-bright',
+        teal: 'bg-light/0 text-teal-bright',
     };
 
-    const tagClasses = tagColorMap[tagColor] || 'bg-light text-teal';
+    const tagClasses = tagColorMap[tagColor] || 'bg-light/0 text-teal';
 
     return (
         <div
-            className="bg-white dark:bg-slate rounded-lg overflow-hidden shadow-lg hover-lift animate-on-scroll fade-in-up"
+            className="bg-white/0 dark:bg-slate/0  rounded-lg overflow-hidden shadow-lg hover-lift animate-on-scroll fade-in-up"
             style={animationStyle}
         >
             {/* Project header with icon */}
-            <div className={`h-48 bg-linear-120 ${gradient} flex items-center justify-center text-white`}>
+            <div className={`h-48 bg-linear-120 ${gradient} flex items-center justify-center text-white relative z-10`}>
                 {icon}
             </div>
 
             {/* Project content */}
-            <div className="p-6">
+            <div className="p-6 relative z-10">
                 <h3 className="text-xl font-bold mb-2 text-slate-dark dark:text-white">{title}</h3>
                 <p className="text-slate mb-4 dark:text-light">
                     {description}
@@ -58,7 +58,7 @@ export default function ProjectCard({
                     {tags.map((tag) => (
                         <span
                             key={tag}
-                            className={`px-2 py-1 ${tagClasses} rounded text-xs font-medium`}
+                            className={`px-2 py-1 ${tagClasses} rounded text-xs font-medium `}
                         >
               {tag}
             </span>

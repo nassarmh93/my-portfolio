@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
+import InteractiveGridBackground from '@/components/InteractiveGridBackground';
 
 // Define font with multiple weights
 const poppins = Poppins({
@@ -16,8 +17,8 @@ const poppins = Poppins({
 export const metadata = {
     title: 'Mohammad Nassar | Portfolio',
     description: 'Business-focused Odoo specialist with technical expertise in ERP implementation and integration',
-    keywords: 'Odoo, ERP, Business Consultant, Mohammad Nassar, Python, API Integration',
-    author: 'Mohammad Nassar',
+    keywords: ['Odoo', 'ERP', 'Business Consultant', 'Mohammad Nassar', 'Python', 'API Integration'],
+    authors: [{ name: 'Mohammad Nassar' }],
     openGraph: {
         title: 'Mohammad Nassar | Odoo Specialist & Business Consultant',
         description: 'Bridging business needs with technical solutions - specializing in Odoo implementations',
@@ -33,9 +34,16 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en" className="scroll-smooth">
-        <body className={`${poppins.className} font-sans`}>
-        {/* Background gradient mesh */}
-        <div className="gradient-mesh fixed inset-0 -z-10 opacity-30"></div>
+        <body className={`${poppins.className} font-sans bg-transparent`}>
+        {/* Interactive Background with dramatic ripple effect */}
+        <InteractiveGridBackground
+            intensity={1.2}           // Slightly reduced
+            density="low"             // Lower density for better performance
+            colors={["#124E66", "#2E3944", "#748092", "#D3D9D4"]}
+            respectReducedMotion={true}
+            hoverRadius={150}         // Reduced hover radius
+            hoverIntensity={0.5}      // Reduced hover intensity
+        />
 
         {/* Main navigation */}
         <Navbar />
