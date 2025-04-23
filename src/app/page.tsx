@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import ProjectCard from '@/components/ProjectCard';
 import ContactCard from '@/components/ContactCard';
 import SkillTag from '@/components/SkillTag';
