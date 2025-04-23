@@ -3,7 +3,6 @@ import ProjectCard from '@/components/ProjectCard';
 import ContactCard from '@/components/ContactCard';
 import SkillTag from '@/components/SkillTag';
 import SectionHeading from '@/components/SectionHeading';
-import EmailButton from '@/components/EmailButton'; // Import the client component
 
 // Define skill categories with their respective skills and colors
 const skillCategories = [
@@ -218,7 +217,6 @@ export default function Home() {
                         {/* Updated Contact Options Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
                             {/* Email Button - Client Component */}
-                            {/*<EmailButton animationDelay={0} />*/}
 
                             {/* Other contact options */}
                             {contactOptions.map((option, index) => (
