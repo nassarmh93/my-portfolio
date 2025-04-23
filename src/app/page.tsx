@@ -1,77 +1,186 @@
-import Link from 'next/link'
+import Link from 'next/link';
+import ProjectCard from '@/components/ProjectCard';
+import ContactCard from '@/components/ContactCard';
+import SkillTag from '@/components/SkillTag';
+import SectionHeading from '@/components/SectionHeading';
+import HeroSection from '@/components/HeroSection';
+import ParticlesBackground from '@/components/ParticlesBackground';
+
+// Define skill categories with their respective skills and colors
+const skillCategories = [
+    {
+        title: 'Business & Odoo',
+        skills: ['Odoo ERP', 'Business Analysis', 'Requirements Gathering', 'Process Optimization', 'Client Consultation', 'Project Management', 'Change Management'],
+        bgColor: 'bg-light',
+        textColor: 'text-teal'
+    },
+    {
+        title: 'Technical',
+        skills: ['Python', 'XML', 'JavaScript', 'PostgreSQL', 'ORM', 'API Integration', 'Git'],
+        bgColor: 'bg-light',
+        textColor: 'text-teal'
+    },
+    {
+        title: 'Cybersecurity (Learning)',
+        skills: ['Network Security', 'Vulnerability Assessment', 'Security Frameworks', 'Risk Management', 'Compliance'],
+        bgColor: 'bg-light',
+        textColor: 'text-teal'
+    }
+];
+
+// Project data
+const projects = [
+    {
+        title: 'Enterprise ERP Implementation',
+        description: 'Led the implementation of a comprehensive Odoo ERP system for a manufacturing client, integrating inventory, sales, accounting, and production modules. Developed custom modules to meet specific business requirements.',
+        gradient: 'from-teal to-slate',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+        ),
+        tags: ['Odoo', 'Python', 'Business Analysis'],
+        tagColor: 'blue'
+    },
+    {
+        title: 'Multi-System Integration Project',
+        description: 'Successfully integrated Odoo ERP with external CRM and e-commerce platforms for a retail client, creating a unified data flow across all business systems. Implemented automated synchronization of customers, inventory, and sales data.',
+        gradient: 'from-slate to-gray',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+        ),
+        tags: ['API Development', 'Data Migration', 'System Architecture'],
+        tagColor: 'indigo'
+    },
+    {
+        title: 'Custom Odoo Modules',
+        description: 'Developed specialized Odoo modules to meet unique business requirements for various clients. Created custom reports, automated workflows, and integrated external systems to enhance operational capabilities.',
+        gradient: 'from-teal to-gray',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+        ),
+        tags: ['Python', 'XML', 'JavaScript', 'API Integration'],
+        tagColor: 'green'
+    },
+    {
+        title: 'Process Optimization & Training',
+        description: 'Analyzed business workflows and optimized processes for efficiency through effective Odoo implementation. Conducted user training sessions and created comprehensive documentation to ensure successful adoption.',
+        gradient: 'from-gray to-slate-dark',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+            </svg>
+        ),
+        tags: ['Business Analysis', 'Training', 'Documentation', 'Change Management'],
+        tagColor: 'orange'
+    }
+];
+
+// Contact options data
+const contactOptions = [
+    {
+        title: 'Email Me',
+        detail: 'nassarmh93@gmail.com',
+        link: 'mailto:nassarmh93@gmail.com',
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-teal-bright mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+        )
+    },
+    {
+        title: 'Connect on LinkedIn',
+        detail: 'linkedin.com/in/nassarmh93',
+        link: 'https://linkedin.com/in/nassarmh93',
+        isExternal: true,
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-teal-bright mb-3" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+            </svg>
+        )
+    },
+    {
+        title: 'Download Resume',
+        detail: 'View my qualifications',
+        link: '/resume-mohammad-nassar.pdf',
+        isDownload: true,
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-teal-bright mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+        )
+    }
+];
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-8 md:p-24">
+        <main className="bg-white dark:bg-slate-dark">
             {/* Hero Section */}
-            <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6">Mohammad Nassar</h1>
-                <h2 className="text-xl md:text-2xl mb-8">Techno-Functional Consultant</h2>
-
-                <p className="text-lg mb-8">
-                    Bridging business needs with technical solutions - specializing in Odoo implementations and
-                    transitioning to cybersecurity.
-                </p>
-
-                <div className="flex gap-4">
-                    <Link href="#projects"
-                          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                        View Projects
-                    </Link>
-                    <Link href="#contact"
-                          className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition">
-                        Contact Me
-                    </Link>
-                </div>
-            </div>
+            <HeroSection
+                name="Mohammad Nassar"
+                title="Odoo Specialist & Business Consultant"
+                description="Bridging business needs with technical solutions - specializing in Odoo implementations and transitioning to cybersecurity."
+            />
 
             {/* About Section */}
-            <section id="about" className="w-full max-w-5xl py-16">
-                <h2 className="text-3xl font-bold mb-6">About Me</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <p className="mb-4">
-                            I&apos;m a business professional with a strong technical foundation in Odoo ERP systems.
-                            With experience as both an Odoo developer and functional consultant, I&apos;ve helped
-                            businesses optimize their operations through effective implementation of business management
-                            solutions.
-                        </p>
-                        <p className="mb-4">
-                            My unique combination of business acumen and technical skills allows me to translate complex
-                            business requirements into functional solutions. I excel at understanding client needs and
-                            configuring systems that drive operational efficiency.
-                        </p>
-                        <p>
-                            I&apos;m currently expanding my expertise into cybersecurity, as I believe secure systems
-                            are the foundation of successful digital business operations. My goal is to help
-                            organizations protect their digital assets while maintaining operational excellence.
-                        </p>
-                    </div>
-                    <div>
-                        <h3 className="text-xl font-semibold mb-4">My Skills</h3>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="font-medium text-sm mb-2 w-full">Business & Odoo:</span>
-                            {['Odoo ERP', 'Business Analysis', 'Requirements Gathering', 'Process Optimization', 'Client Consultation', 'Project Management', 'Change Management'].map((skill) => (
-                                <span key={skill} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                  {skill}
-                </span>
-                            ))}
+            <section id="about" className="py-20 bg-white dark:bg-slate-dark relative">
+                <div className="absolute inset-0 opacity-5">
+                    <ParticlesBackground count={15} maxSize={2} speed={0.2} />
+                </div>
+                <div className="container mx-auto px-4 md:px-8 relative z-10">
+                    <SectionHeading>
+            <span className="relative">
+              About Me
+              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
+            </span>
+                    </SectionHeading>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div className="animate-on-scroll fade-in-up card-3d p-8 rounded-xl bg-white dark:bg-slate shadow-lg">
+                            <h3 className="text-xl font-semibold mb-4 text-teal-bright">My Background</h3>
+                            <p className="text-slate dark:text-light mb-4">
+                                I&apos;m a business professional with a strong technical foundation in Odoo ERP systems.
+                                With experience as both an Odoo developer and functional consultant, I&apos;ve helped
+                                businesses optimize their operations through effective implementation of business management
+                                solutions.
+                            </p>
+                            <p className="text-slate dark:text-light mb-4">
+                                My unique combination of business acumen and technical skills allows me to translate complex
+                                business requirements into functional solutions. I excel at understanding client needs and
+                                configuring systems that drive operational efficiency.
+                            </p>
+                            <p className="text-slate dark:text-light">
+                                I&apos;m currently expanding my expertise into cybersecurity, as I believe secure systems
+                                are the foundation of successful digital business operations. My goal is to help
+                                organizations protect their digital assets while maintaining operational excellence.
+                            </p>
                         </div>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="font-medium text-sm mb-2 w-full">Technical:</span>
-                            {['Python', 'XML', 'JavaScript', 'PostgreSQL', 'ORM', 'API Integration', 'Git'].map((skill) => (
-                                <span key={skill} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                  {skill}
-                </span>
-                            ))}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            <span className="font-medium text-sm mb-2 w-full">Cybersecurity (Learning):</span>
-                            {['Network Security', 'Vulnerability Assessment', 'Security Frameworks', 'Risk Management', 'Compliance'].map((skill) => (
-                                <span key={skill}
-                                      className="px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-sm">
-                  {skill}
-                </span>
+
+                        {/* Skills section without scrollable container */}
+                        <div className="card glass p-6 rounded-lg">
+                            <h3 className="text-xl font-semibold mb-4 text-teal-bright">My Skills</h3>
+                            {skillCategories.map((category) => (
+                                <div key={category.title} className="mb-8 last:mb-0">
+                                    <h4 className="font-medium text-slate-dark dark:text-white mb-3 flex items-center">
+                                        <span className="w-2 h-2 bg-teal rounded-full mr-2"></span>
+                                        {category.title}
+                                    </h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {category.skills.map((skill) => (
+                                            <SkillTag
+                                                key={skill}
+                                                bgColor={category.bgColor}
+                                                textColor={category.textColor}
+                                            >
+                                                {skill}
+                                            </SkillTag>
+                                        ))}
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -79,123 +188,72 @@ export default function Home() {
             </section>
 
             {/* Projects Section */}
-            <section id="projects" className="w-full max-w-5xl py-16">
-                <h2 className="text-3xl font-bold mb-6">Projects & Experience</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Project Card 1 */}
-                    <div className="border border-gray-200 rounded-lg overflow-hidden">
-                        <div className="bg-gray-100 h-48 flex items-center justify-center">
-                            <span className="text-gray-400">Odoo Implementation</span>
-                        </div>
-                        <div className="p-4">
-                            <h3 className="text-xl font-semibold mb-2">Enterprise ERP Implementation</h3>
-                            <p className="text-gray-600 mb-4">
-                                Led the implementation of a comprehensive Odoo ERP system for a manufacturing client,
-                                integrating inventory, sales, accounting, and production modules. Developed custom
-                                modules to meet specific business requirements.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mt-3 mb-4">
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Odoo</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Python</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Business Analysis</span>
-                            </div>
-                        </div>
-                    </div>
+            <section id="projects" className="py-20 bg-light dark:bg-slate relative">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-linear-180 from-teal/10 to-transparent"></div>
+                </div>
+                <div className="container mx-auto px-4 md:px-8 relative z-10">
+                    <SectionHeading>
+            <span className="relative">
+              Projects & Experience
+              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
+            </span>
+                    </SectionHeading>
 
-                    {/* Project Card 2 */}
-                    <div className="border border-gray-200 rounded-lg overflow-hidden">
-                        <div className="bg-gray-100 h-48 flex items-center justify-center">
-                            <span className="text-gray-400">Cybersecurity Project</span>
-                        </div>
-                        <div className="p-4">
-                            <h3 className="text-xl font-semibold mb-2">ERP Security Audit & Enhancement</h3>
-                            <p className="text-gray-600 mb-4">
-                                Conducted a comprehensive security audit of an Odoo implementation, identifying
-                                vulnerabilities and implementing security measures to protect sensitive business data.
-                                Created documentation and training for secure system use.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mt-3 mb-4">
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Security Assessment</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Access Controls</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Data Protection</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Project Card 3 */}
-                    <div className="border border-gray-200 rounded-lg overflow-hidden">
-                        <div className="bg-gray-100 h-48 flex items-center justify-center">
-                            <span className="text-gray-400">Custom Development</span>
-                        </div>
-                        <div className="p-4">
-                            <h3 className="text-xl font-semibold mb-2">Custom Odoo Modules</h3>
-                            <p className="text-gray-600 mb-4">
-                                Developed specialized Odoo modules to meet unique business requirements for various
-                                clients. Created custom reports, automated workflows, and integrated external systems to
-                                enhance operational capabilities.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mt-3 mb-4">
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Python</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">XML</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">JavaScript</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">API Integration</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Project Card 4 */}
-                    <div className="border border-gray-200 rounded-lg overflow-hidden">
-                        <div className="bg-gray-100 h-48 flex items-center justify-center">
-                            <span className="text-gray-400">Business Consulting</span>
-                        </div>
-                        <div className="p-4">
-                            <h3 className="text-xl font-semibold mb-2">Process Optimization & Training</h3>
-                            <p className="text-gray-600 mb-4">
-                                Analyzed business workflows and optimized processes for efficiency through effective
-                                Odoo implementation. Conducted user training sessions and created comprehensive
-                                documentation to ensure successful adoption.
-                            </p>
-                            <div className="flex flex-wrap gap-2 mt-3 mb-4">
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Business Analysis</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Training</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Documentation</span>
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs">Change Management</span>
-                            </div>
-                        </div>
+                    {/* Projects grid without scrollable container */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        {projects.map((project, index) => (
+                            <ProjectCard
+                                key={project.title}
+                                title={project.title}
+                                description={project.description}
+                                gradient={project.gradient}
+                                icon={project.icon}
+                                tags={project.tags}
+                                tagColor={project.tagColor}
+                                animationDelay={index * 100}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Contact Section */}
-            <section id="contact" className="w-full max-w-5xl py-16">
-                <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
-                <p className="mb-6">
-                    If you&apos;re looking for someone who understands both business
-                    processes and technical implementation with a growing focus on security, I&apos;d love to connect.
-                </p>
-                <div className="flex flex-col md:flex-row gap-4">
-                    <a
-                        href="mailto:nassarmh93@gmail.com"
-                        className="px-4 py-2 bg-blue-600 text-white rounded text-center hover:bg-blue-700 transition"
-                    >
-                        Email Me
-                    </a>
-                    <a
-                        href="https://linkedin.com/in/nassarmh93"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 bg-blue-600 text-white rounded text-center hover:bg-blue-700 transition"
-                    >
-                        LinkedIn
-                    </a>
-                    <a
-                        href="#"
-                        className="px-4 py-2 border border-gray-300 rounded text-center hover:bg-gray-100 transition"
-                    >
-                        Download Resume
-                    </a>
+            <section id="contact" className="py-20 bg-white dark:bg-slate-dark relative">
+                <div className="absolute inset-0 opacity-5">
+                    <ParticlesBackground count={15} maxSize={2} speed={0.2} />
+                </div>
+                <div className="container mx-auto px-4 md:px-8 relative z-10">
+                    <SectionHeading>
+            <span className="relative">
+              Get In Touch
+              <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-teal"></span>
+            </span>
+                    </SectionHeading>
+
+                    <div className="max-w-3xl mx-auto card glass p-8 rounded-xl shadow-lg animate-on-scroll fade-in-up">
+                        <p className="text-slate dark:text-light text-lg text-center mb-8">
+                            If you&apos;re looking for someone who understands both business
+                            processes and technical implementation with a growing focus on security, I&apos;d love to connect.
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {contactOptions.map((option, index) => (
+                                <ContactCard
+                                    key={option.title}
+                                    title={option.title}
+                                    detail={option.detail}
+                                    link={option.link}
+                                    icon={option.icon}
+                                    isExternal={option.isExternal}
+                                    isDownload={option.isDownload}
+                                    animationDelay={index * 100}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
-    )
+    );
 }

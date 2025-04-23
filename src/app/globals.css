@@ -1,26 +1,373 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Define theme variables with your custom color palette */
+@theme {
+    /* Custom color palette */
+    --color-slate-dark: oklch(0.18 0.017 251.69);      /* #212A31 - Dark charcoal/slate */
+    --color-slate: oklch(0.28 0.022 251.09);           /* #2E3944 - Dark blue-gray */
+    --color-teal: oklch(0.34 0.052 220.62);            /* #124E66 - Teal blue */
+    --color-teal-bright: oklch(0.70 0.07 220.62);      /* Brighter teal for text */
+    --color-gray: oklch(0.56 0.026 251.83);            /* #748092 - Medium gray with blue undertones */
+    --color-light: oklch(0.86 0.02 150.42);            /* #D3D9D4 - Light gray with slight green tint */
+
+    /* Primary color for interactive elements */
+    --color-primary-50: oklch(0.96 0.015 220.62);
+    --color-primary-100: oklch(0.92 0.02 220.62);
+    --color-primary-200: oklch(0.84 0.025 220.62);
+    --color-primary-300: oklch(0.76 0.035 220.62);
+    --color-primary-400: oklch(0.62 0.045 220.62);
+    --color-primary-500: oklch(0.48 0.055 220.62);     /* Based on #124E66 */
+    --color-primary-600: oklch(0.39 0.05 220.62);
+    --color-primary-700: oklch(0.32 0.045 220.62);
+    --color-primary-800: oklch(0.25 0.035 220.62);
+    --color-primary-900: oklch(0.18 0.025 220.62);
+
+    /* Accent color for highlights */
+    --color-accent: oklch(0.65 0.13 110);
+
+    /* Neutral colors for text and backgrounds */
+    --color-slate-50: oklch(0.98 0.005 251.69);
+    --color-slate-100: oklch(0.94 0.01 251.69);
+    --color-slate-200: oklch(0.88 0.015 251.69);
+    --color-slate-300: oklch(0.78 0.02 251.69);
+    --color-slate-400: oklch(0.68 0.025 251.69);
+    --color-slate-500: oklch(0.58 0.022 251.69);
+    --color-slate-600: oklch(0.48 0.02 251.69);
+    --color-slate-700: oklch(0.38 0.018 251.69);
+    --color-slate-800: oklch(0.28 0.016 251.69);
+    --color-slate-900: oklch(0.18 0.014 251.69);
+
+    /* Font settings - using direct font declarations instead of CSS variables */
+
+    /* Spacing scale */
+    --spacing: 0.25rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Base styles */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        font-family: Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+        color: var(--color-slate-dark);
+        background-color: white;
+        min-height: 100vh;
+        font-family: Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: bold;
+        color: var(--color-slate-dark);
+    }
+
+    /* Custom scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-light);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-gray);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-teal);
+    }
+
+    /* Firefox scrollbar support */
+    html {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-gray) var(--color-light);
+    }
+
+    a {
+        transition: all 0.3s ease;
+        color: var(--color-teal-bright);
+    }
+
+    a:hover {
+        color: var(--color-primary-600);
+    }
 }
 
+/* Component styles */
+@layer components {
+    /* Gradient background for mesh pattern */
+    .gradient-mesh {
+        background-image:
+                linear-gradient(to right, color-mix(in oklab, var(--color-teal) 5%, transparent) 1px, transparent 1px),
+                linear-gradient(to bottom, color-mix(in oklab, var(--color-teal) 5%, transparent) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+
+    /* 3D floating card effect */
+    .card-3d {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    .card-3d:hover {
+        transform: translateY(-10px) rotateX(4deg) rotateY(4deg);
+        box-shadow:
+                0 20px 30px -15px rgba(33, 42, 49, 0.2),
+                0 10px 15px -5px rgba(18, 78, 102, 0.1);
+    }
+
+    /* Hover lift animation for cards */
+    .hover-lift {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(33, 42, 49, 0.15);
+    }
+
+    /* Text gradient effect */
+    .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(135deg, var(--color-teal), var(--color-primary-600));
+    }
+
+    /* Glass effect */
+    .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Button styles */
+    .btn-primary {
+        padding: 0.75rem 1.5rem;
+        background-color: var(--color-teal);
+        color: white;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        box-shadow: 0 4px 12px rgba(18, 78, 102, 0.15);
+        border: 1px solid transparent;
+    }
+
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transform: translateX(-100%);
+        z-index: -1;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--color-primary-600);
+        box-shadow: 0 6px 16px rgba(18, 78, 102, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .btn-primary:hover::before {
+        transform: translateX(100%);
+        transition: transform 0.8s ease;
+    }
+
+    .btn-secondary {
+        padding: 0.75rem 1.5rem;
+        background-color: transparent;
+        color: var(--color-slate-700);
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        border: 1px solid var(--color-slate-200);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--color-light);
+        border-color: var(--color-teal);
+        color: var(--color-teal);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Section container */
+    .section-container {
+        padding: 5rem 1rem;
+        position: relative;
+    }
+
+    /* Card styles */
+    .card {
+        background-color: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--color-light);
+    }
+
+    .card:hover {
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-shimmer {
+    background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0)
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.back-to-top {
+    animation: pulse 2s infinite;
+}
+
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+    @theme {
+        /* Invert colors for dark mode */
+        --color-slate-50: oklch(0.18 0.014 251.69);
+        --color-slate-100: oklch(0.22 0.016 251.69);
+        --color-slate-200: oklch(0.26 0.018 251.69);
+        --color-slate-300: oklch(0.32 0.02 251.69);
+        --color-slate-400: oklch(0.38 0.022 251.69);
+        --color-slate-500: oklch(0.48 0.024 251.69);
+        --color-slate-600: oklch(0.58 0.024 251.69);
+        --color-slate-700: oklch(0.68 0.022 251.69);
+        --color-slate-800: oklch(0.78 0.016 251.69);
+        --color-slate-900: oklch(0.92 0.01 251.69);
+    }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    body {
+        background-color: var(--color-slate-dark);
+        color: var(--color-light);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: white;
+    }
+
+    /* Dark mode specific styles */
+    .gradient-mesh {
+        background-image:
+                linear-gradient(to right, color-mix(in oklab, var(--color-teal) 10%, transparent) 1px, transparent 1px),
+                linear-gradient(to bottom, color-mix(in oklab, var(--color-teal) 10%, transparent) 1px, transparent 1px);
+    }
+
+    .card {
+        background-color: var(--color-slate);
+        border-color: var(--color-slate-700);
+    }
+
+    .btn-secondary {
+        color: var(--color-light);
+        border-color: var(--color-slate-600);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--color-slate-700);
+        color: white;
+    }
+
+    /* Glass effect for dark mode */
+    .glass {
+        background: rgba(46, 57, 68, 0.3);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(116, 128, 146, 0.2);
+    }
 }
