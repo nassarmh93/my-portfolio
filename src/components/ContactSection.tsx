@@ -22,7 +22,7 @@ const ContactSection = () => {
         >
           <h2 className="section-title">Get in Touch</h2>
           <p className="section-subtitle">
-            Let's discuss how I can help transform your business with strategic ERP solutions
+            Let&apos;s discuss how I can help transform your business with strategic ERP solutions
           </p>
         </motion.div>
 
@@ -88,10 +88,10 @@ const ContactSection = () => {
             viewport={{ once: true }}
             className="bg-gradient-to-br from-dark-800/50 to-dark-700/50 rounded-2xl p-8 shadow-lg border border-accent-400/20 glass"
           >
-            <h3 className="text-2xl font-bold text-text-primary mb-4">Let's Work Together</h3>
+            <h3 className="text-2xl font-bold text-text-primary mb-4">Let&apos;s Work Together</h3>
             <p className="text-text-secondary mb-6">
-              I'm available for ERP consulting, system implementations, and strategic technology partnerships. 
-              Whether you need to optimize existing systems or implement new solutions, I'm here to help.
+              I&apos;m available for ERP consulting, system implementations, and strategic technology partnerships. 
+              Whether you need to optimize existing systems or implement new solutions, I&apos;m here to help.
             </p>
             
             <div className="space-y-4">

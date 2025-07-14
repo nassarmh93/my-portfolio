@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowDownIcon, MapPinIcon, PhoneIcon, EnvelopeIcon, GlobeAltIcon, SparklesIcon } from '@heroicons/react/24/outline'
+import { ArrowDownIcon, MapPinIcon, PhoneIcon, EnvelopeIcon, SparklesIcon } from '@heroicons/react/24/outline'
 
 const HeroSection = () => {
   const scrollToSection = (sectionId: string) => {
