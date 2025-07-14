@@ -1,62 +1,62 @@
-import './globals.css';
-import { Poppins } from 'next/font/google';
-import { ReactNode } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import BackToTop from '@/components/BackToTop';
-import InteractiveGridBackground from '@/components/InteractiveGridBackground';
+import './globals.css'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
+import { ReactNode } from 'react'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import BackgroundAnimation from '@/components/BackgroundAnimation'
 
-// Define font with multiple weights
-const poppins = Poppins({
-    weight: ['300', '400', '500', '600', '700'],
-    subsets: ['latin'],
-    display: 'swap',
-});
+// Define fonts
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter'
+})
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-plus-jakarta'
+})
 
 // Define metadata for the page
 export const metadata = {
-    title: 'Mohammad Nassar | Portfolio',
-    description: 'Business-focused Odoo specialist with technical expertise in ERP implementation and integration',
-    keywords: ['Odoo', 'ERP', 'Business Consultant', 'Mohammad Nassar', 'Python', 'API Integration'],
-    authors: [{ name: 'Mohammad Nassar' }],
-    openGraph: {
-        title: 'Mohammad Nassar | Odoo Specialist & Business Consultant',
-        description: 'Bridging business needs with technical solutions - specializing in Odoo implementations',
-        type: 'website',
-        locale: 'en_US',
-    },
-};
+  title: 'Mohammad Nassar | Strategic ERP Architect',
+  description: 'Strategic ERP architect specializing in implementations, system analysis, and UI/UX design. Expert in Odoo, Python, React.js, and cloud technologies.',
+  keywords: ['ERP Architect', 'System Analyst', 'Odoo', 'Python', 'React.js', 'Cloud Solutions', 'Mohammad Nassar'],
+  authors: [{ name: 'Mohammad Nassar' }],
+  openGraph: {
+    title: 'Mohammad Nassar | Strategic ERP Architect & System Analyst',
+    description: 'Strategic ERP architect specializing in implementations, system analysis, and UI/UX design.',
+    type: 'website',
+    locale: 'en_US',
+  },
+}
 
 interface RootLayoutProps {
-    children: ReactNode;
+  children: ReactNode
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-    return (
-        <html lang="en" className="scroll-smooth">
-        <body className={`${poppins.className} font-sans bg-transparent`}>
-        {/* Interactive Background with dramatic ripple effect */}
-        <InteractiveGridBackground
-            intensity={0.2}           // Slightly reduced
-            density="high"             // Lower density for better performance
-            colors={["#124E66", "#2E3944", "#748092", "#D3D9D4"]}
-            respectReducedMotion={true}
-            hoverRadius={50}         // Reduced hover radius
-            hoverIntensity={1}      // Reduced hover intensity
-        />
+  return (
+    <html lang="en" className={`scroll-smooth ${inter.variable} ${plusJakarta.variable}`}>
+      <body className="font-sans bg-dark-900 text-text-primary antialiased">
+        {/* Global gradient background */}
+        <BackgroundAnimation />
 
-        {/* Main navigation */}
-        <Navbar />
+        {/* Content wrapper */}
+        <div className="relative z-10">
+          {/* Main navigation */}
+          <Navbar />
 
-        {/* Page content */}
-        {children}
+          {/* Page content */}
+          <main className="pt-20">
+            {children}
+          </main>
 
-        {/* Footer */}
-        <Footer />
-
-        {/* Back to top button */}
-        <BackToTop />
-        </body>
-        </html>
-    );
+          {/* Footer */}
+          <Footer />
+        </div>
+      </body>
+    </html>
+  )
 }
