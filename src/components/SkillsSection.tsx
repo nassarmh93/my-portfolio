@@ -80,7 +80,7 @@ const SkillsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16 px-4 sm:px-0"
         >
           <h2 className="section-title">Technology Stack & Competencies</h2>
           <p className="section-subtitle">
@@ -88,7 +88,7 @@ const SkillsSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-0">
           {skillCategories.map((category, index) => {
             const Icon = category.icon
             const colorClasses = {
@@ -112,10 +112,10 @@ const SkillsSection = () => {
                 className="skill-category hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className={`p-2 rounded-lg ${colorClasses[category.color as keyof typeof colorClasses]}`}>
-                    <Icon className={`w-6 h-6 ${iconColorClasses[category.color as keyof typeof iconColorClasses]}`} />
+                  <div className={`p-1.5 sm:p-2 rounded-lg ${colorClasses[category.color as keyof typeof colorClasses]}`}>
+                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${iconColorClasses[category.color as keyof typeof iconColorClasses]}`} />
                   </div>
-                  <h3 className="text-lg font-bold text-text-primary">{category.title}</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-text-primary">{category.title}</h3>
                 </div>
                 
                 <div className="flex flex-wrap gap-2">
@@ -144,11 +144,11 @@ const SkillsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="mt-10 sm:mt-16 text-center px-4 sm:px-0"
         >
-          <div className="inline-flex items-center gap-2 text-text-secondary bg-dark-800/50 px-6 py-3 rounded-full border border-dark-600 glass">
+          <div className="inline-flex items-center gap-2 text-text-secondary bg-dark-800/50 px-4 py-2 sm:px-6 sm:py-3 rounded-full border border-dark-600 glass text-sm sm:text-base">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span>Currently expanding expertise in cloud-native architectures and microservices</span>
+            <span className="text-xs sm:text-base">Currently expanding expertise in cloud-native architectures and microservices</span>
           </div>
         </motion.div>
       </div>

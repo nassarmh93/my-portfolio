@@ -70,7 +70,7 @@ const EducationSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16 px-4 sm:px-0"
         >
           <h2 className="section-title">Education & Certifications</h2>
           <p className="section-subtitle">
@@ -78,7 +78,7 @@ const EducationSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 px-4 sm:px-0">
           {/* Education Section */}
           <div>
             <motion.h3
@@ -86,13 +86,13 @@ const EducationSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-3"
+              className="text-xl sm:text-2xl font-bold text-text-primary mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3"
             >
-              <AcademicCapIcon className="w-8 h-8 text-accent-400" />
+              <AcademicCapIcon className="w-6 h-6 sm:w-8 sm:h-8 text-accent-400" />
               Education
             </motion.h3>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {education.map((edu, index) => (
                 <motion.div
                   key={index}
@@ -100,17 +100,17 @@ const EducationSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="card p-6 hover:shadow-lg transition-shadow duration-300"
+                  className="card p-4 sm:p-6 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-accent-400/10 rounded-lg flex items-center justify-center">
-                      <BuildingLibraryIcon className="w-6 h-6 text-accent-400" />
+                    <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-accent-400/10 rounded-lg flex items-center justify-center">
+                      <BuildingLibraryIcon className="w-5 h-5 sm:w-6 sm:h-6 text-accent-400" />
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-bold text-text-primary mb-1">{edu.degree}</h4>
-                      <p className="text-accent-400 font-semibold mb-2">{edu.field}</p>
-                      <p className="text-text-secondary mb-2">{edu.institution}</p>
-                      <div className="flex items-center gap-4 text-sm text-text-secondary">
+                      <h4 className="text-base sm:text-lg font-bold text-text-primary mb-1">{edu.degree}</h4>
+                      <p className="text-accent-400 font-semibold mb-2 text-sm sm:text-base">{edu.field}</p>
+                      <p className="text-text-secondary mb-2 text-sm sm:text-base">{edu.institution}</p>
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-text-secondary">
                         <div className="flex items-center gap-1">
                           <CalendarIcon className="w-4 h-4 text-text-secondary" />
                           <span>{edu.date}</span>
@@ -132,13 +132,13 @@ const EducationSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-3"
+              className="text-xl sm:text-2xl font-bold text-text-primary mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3"
             >
-              <CheckBadgeIcon className="w-8 h-8 text-purple-400" />
+              <CheckBadgeIcon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />
               Certifications
             </motion.h3>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={index}
@@ -146,20 +146,20 @@ const EducationSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="card p-6 hover:shadow-lg transition-shadow duration-300"
+                  className="card p-4 sm:p-6 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-purple-400/10 rounded-lg flex items-center justify-center">
-                      <DocumentCheckIcon className="w-6 h-6 text-purple-400" />
+                    <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-purple-400/10 rounded-lg flex items-center justify-center">
+                      <DocumentCheckIcon className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
                     </div>
                     <div className="flex-1">
                       <h4 className="text-lg font-bold text-text-primary mb-1">{cert.name}</h4>
-                      <p className="text-purple-400 font-semibold mb-2">{cert.issuer}</p>
-                      <div className="flex items-center gap-4 text-sm text-text-secondary mb-3">
+                      <p className="text-purple-400 font-semibold mb-2 text-sm sm:text-base">{cert.issuer}</p>
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-text-secondary mb-3">
                         <span>Credential ID: <span className="font-mono font-semibold">{cert.credentialId}</span></span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1 text-sm text-text-secondary">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-2">
+                        <div className="flex items-center gap-1 text-xs sm:text-sm text-text-secondary">
                           <CalendarIcon className="w-4 h-4 text-text-secondary" />
                           <span>Issued {cert.dateIssued}</span>
                         </div>
@@ -168,9 +168,9 @@ const EducationSection = () => {
                             href={cert.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-sm text-accent-400 hover:text-accent-500 font-medium transition-colors"
+                            className="flex items-center gap-1 text-xs sm:text-sm text-accent-400 hover:text-accent-500 font-medium transition-colors"
                           >
-                            <LinkIcon className="w-4 h-4 text-accent-400" />
+                            <LinkIcon className="w-3 h-3 sm:w-4 sm:h-4 text-accent-400" />
                             <span>Verify</span>
                           </a>
                         )}

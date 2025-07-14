@@ -62,7 +62,7 @@ const ExperienceSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16 px-4 sm:px-0"
         >
           <h2 className="section-title">Professional Experience</h2>
           <p className="section-subtitle">
@@ -90,15 +90,15 @@ const ExperienceSection = () => {
                 </div>
 
                 {/* Content card */}
-                <div className="flex-1 card card-hover p-8">
+                <div className="flex-1 card card-hover p-6 sm:p-8">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                     <div>
-                      <h3 className="text-2xl font-bold text-text-primary mb-2">{exp.position}</h3>
-                      <div className="flex items-center gap-2 text-accent-400 font-semibold mb-2">
-                        <BuildingOfficeIcon className="w-5 h-5 text-accent-400" />
+                      <h3 className="text-xl sm:text-2xl font-bold text-text-primary mb-2">{exp.position}</h3>
+                      <div className="flex items-center gap-2 text-accent-400 font-semibold mb-2 text-sm sm:text-base">
+                        <BuildingOfficeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-accent-400" />
                         <span>{exp.company}</span>
                       </div>
-                      <div className="flex items-center gap-4 text-text-secondary text-sm">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-text-secondary text-xs sm:text-sm">
                         <div className="flex items-center gap-1">
                           <CalendarIcon className="w-4 h-4 text-text-secondary" />
                           <span>{exp.duration}</span>
@@ -119,8 +119,8 @@ const ExperienceSection = () => {
                         viewport={{ once: true }}
                         className="flex items-start gap-3"
                       >
-                        <span className="flex-shrink-0 w-2 h-2 bg-accent-500 rounded-full mt-2"></span>
-                        <span className="text-text-secondary leading-relaxed">{resp}</span>
+                        <span className="flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-accent-500 rounded-full mt-1.5 sm:mt-2"></span>
+                        <span className="text-text-secondary leading-relaxed text-sm sm:text-base">{resp}</span>
                       </motion.li>
                     ))}
                   </ul>

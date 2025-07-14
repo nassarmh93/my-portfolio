@@ -138,7 +138,7 @@
 @layer components {
     /* Gradient button with glow effect */
     .btn {
-        @apply inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-300 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed;
+        @apply inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 font-semibold transition-all duration-300 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed;
         letter-spacing: 0.025em;
         text-decoration: none;
         position: relative;
@@ -206,7 +206,8 @@
     .card {
         background: var(--color-bg-secondary);
         border: 1px solid var(--color-dark-600);
-        border-radius: 16px;
+        border-radius: 12px;
+        @apply sm:rounded-2xl;
         overflow: hidden;
         transition: all 0.3s ease;
         position: relative;
@@ -257,17 +258,17 @@
     
     /* Section styles */
     .section {
-        @apply py-24 px-4 md:px-6 lg:px-8;
+        @apply py-16 sm:py-20 md:py-24 px-4 md:px-6 lg:px-8;
         position: relative;
     }
     
     .section-title {
-        @apply text-5xl md:text-6xl font-bold mb-6;
+        @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6;
         color: var(--color-text-primary);
     }
     
     .section-subtitle {
-        @apply text-xl md:text-2xl max-w-3xl mx-auto;
+        @apply text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto;
         color: var(--color-text-secondary);
     }
     

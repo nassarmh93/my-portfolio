@@ -25,7 +25,7 @@ const BackgroundAnimation = () => {
       {/* Animated gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute -top-48 -left-48 w-96 h-96 bg-purple-500/30 rounded-full filter blur-[128px]"
+          className="absolute -top-48 -left-48 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500/30 rounded-full filter blur-[64px] sm:blur-[128px]"
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 50, 0],
@@ -38,7 +38,7 @@ const BackgroundAnimation = () => {
           }}
         />
         <motion.div
-          className="absolute -bottom-48 -right-48 w-96 h-96 bg-accent-400/30 rounded-full filter blur-[128px]"
+          className="absolute -bottom-48 -right-48 w-64 sm:w-96 h-64 sm:h-96 bg-accent-400/30 rounded-full filter blur-[64px] sm:blur-[128px]"
           animate={{
             scale: [1.2, 1, 1.2],
             x: [0, -50, 0],
@@ -51,7 +51,7 @@ const BackgroundAnimation = () => {
           }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-500/20 to-accent-400/20 rounded-full filter blur-[128px]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-to-r from-purple-500/20 to-accent-400/20 rounded-full filter blur-[64px] sm:blur-[128px]"
           animate={{
             scale: [1, 1.1, 1],
             rotate: [0, 180, 360],
@@ -64,7 +64,7 @@ const BackgroundAnimation = () => {
         />
         {/* Additional orbs for more depth */}
         <motion.div
-          className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-600/20 rounded-full filter blur-[100px]"
+          className="hidden sm:block absolute top-1/4 right-1/4 w-64 h-64 bg-purple-600/20 rounded-full filter blur-[100px]"
           animate={{
             scale: [1, 1.3, 1],
             x: [-20, 20, -20],
@@ -77,7 +77,7 @@ const BackgroundAnimation = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-accent-500/20 rounded-full filter blur-[100px]"
+          className="hidden sm:block absolute bottom-1/4 left-1/4 w-72 h-72 bg-accent-500/20 rounded-full filter blur-[100px]"
           animate={{
             scale: [1.1, 0.9, 1.1],
             x: [20, -20, 20],
