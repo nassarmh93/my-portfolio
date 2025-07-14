@@ -49,15 +49,14 @@ const certifications: Certification[] = [
     name: "Odoo v17 Functional Consultant",
     issuer: "Odoo",
     credentialId: "0000409637",
-    dateIssued: "May 2024",
-    link: "#" // Replace with actual verification link
+    dateIssued: "May 2024"
   },
   {
     name: "Professional Data Analytics",
     issuer: "Google",
     credentialId: "J6DDJMS3LJNQ",
     dateIssued: "July 2023",
-    link: "#" // Replace with actual verification link
+    link: "https://www.coursera.org/account/accomplishments/professional-cert/J6DDJMS3LJNQ" // Common Google cert verification format
   }
 ]
 
